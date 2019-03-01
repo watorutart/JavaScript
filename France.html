@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        body {
+            text-align: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        td {
+            border: 1px solid;
+            width: 150px;
+            height: 300px;
+        }
+
+    </style>
+    <title>フランスの国旗</title>
+</head>
+
+<body>
+    <table>
+        <caption>フランスの国旗</caption>
+        <tr>
+            <td id="left"></td>
+            <td id="middle"></td>
+            <td id="right"></td>
+        </tr>
+    </table>
+    <br>
+    <input type="button" value="色を付ける" onclick="changeCol()">
+
+    <script>
+        function changeCol() {
+            var cel_l = document.getElementById("left");
+            var cel_m = document.getElementById("middle");
+            var cel_r = document.getElementById("right");
+            cel_l.style.backgroundColor = "navy";
+            cel_m.style.backgroundColor = "white";
+            cel_r.style.backgroundColor = "red";
+        }
+
+    </script>
+</body>
+
+</html>
