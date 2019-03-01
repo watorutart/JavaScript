@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>img change button</title>
+</head>
+
+<body>
+    <div id="picdiv">
+        <img src="http://paiza.jp/learning/images/sword.png">
+    </div>
+    <input type="button" value="画像を変える" onclick="changePic()">
+</body>
+<script>
+    var cnt = 0;
+
+    function changePic() {
+        cnt++;
+        var pDiv = document.getElementById("picdiv");
+        if (cnt % 2 == 1) pDiv.innerHTML = "<img src='http://paiza.jp/learning/images/shield.png'>";
+        else pDiv.innerHTML = "<img src='http://paiza.jp/learning/images/sword.png'>";
+
+        if (cnt >= 100) {
+            alert(cnt + "回押された")
+            cnt = 0;
+        }
+    }
+
+</script>
+
+</html>
