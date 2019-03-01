@@ -1,24 +1,29 @@
 <!DOCTYPE html>
-<html lang = "ja">
+<html lang="ja">
+
 <head>
-    <meta charset = "utf-8">
+    <meta charset="utf-8">
     <title>ボタン</title>
-    </head>
+</head>
+
 <body>
-    <input type = "button" value = "ボタン1" onclick = "alert('ボタンが押されました')">
-    <input type = "button" value = "ボタン2" onclick = "onBtn()">
-    <input type = "button" id = "cntBtn" value = "カウントボタン 0" onclick = "onCntBtn()">
-    </body>
-    <script>
-        var cnt = 0;
-        var btn = document.getElementById("cntBtn");
-        function onBtn(){
-            alert("ボタンが押されました(関数が実行されました)");
-        }
-        
-        function onCntBtn(){
-            cnt++;
-            btn.value = "カウントボタン" + cnt;
-        }
-    </script>
+    <input type="button" value="ボタン1" onclick="alert('ボタンが押されました')">
+    <input type="button" value="ボタン2" onclick="onBtn()">
+    <input type="button" id="cntBtn" value="カウントボタン 0" onclick="onCntBtn()">
+</body>
+<script>
+    var cnt = 0;
+    var btn = document.getElementById("cntBtn");
+
+    function onBtn() {
+        alert("ボタンが押されました(関数が実行されました)");
+    }
+
+    function onCntBtn() {
+        cnt++;
+        btn.value = "カウントボタン" + cnt;
+    }
+
+</script>
+
 </html>
