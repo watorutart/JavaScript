@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>Battle</title>
+</head>
+
+<body>
+    <div id="enemy">
+        <img src="https://4.bp.blogspot.com/-yr7B9IanNcY/Wn1V29LFeVI/AAAAAAABKF4/jUBITNcwgXE4QpD4coaOyE7HngsxND2RwCLcBGAs/s800/fantasy_mandrake_mandragora.png" width="300" height="300">
+    </div>
+    <div>
+        <input type="button" value="攻撃" onclick="attack()">
+        <input type="button" value="防御" onclick="guard()">
+        <input type="button" value="回復" onclick="heal()">
+    </div>
+    <div id="hp"></div>
+    <br>
+    -------------------------------------------------
+    <div id="message"></div>
+</body>
+<script>
+    var hp_of_enemy = 300;
+    var hp_of_player = 300;
+    var cntTurn = 0;
+
+    var hp = document.getElementById("hp");
+    hp.innerHTML = "Player | HP | " + hp_of_player;
+    var mess = document.getElementById("message");
+
+    var ene = document.getElementById("enemy");
+
+    function attack() {
+        if (hp_of_enemy > 0) {
+            damage1 = Math.floor(Math.random() * 70 + 30);
+            hp_of_enemy -= damage1;
+            if (hp_of_enemy < 0) {
+                clear();
+            } else {
+                damage2 = Math.floor(Math.random() * 50 + 50);
+                hp_of_player -= damage2;
+                mess.innerHTML = damage1 + "ダメージを与えた！<br>" + damage2 + "ダメージを受けた";
+                hp.innerHTML = "Player | HP | " + hp_of_player;
+                isGameOver(hp_of_player);
+            }
+            cntTurn++;
+        }
+    }
+
+    function guard() {
+        if (hp_of_enemy > 0) {
+            hp_of_player -= Math.floor(Math.random() * 40 + 10);
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+            isGameOver(hp_of_player);
+            cntTurn++;
+        }
+    }
+
+    function heal() {
+        if (hp_of_enemy > 0) {
+            heals = Math.floor(Math.random() * 30 + 200);
+            hp_of_player += heals;
+
+            if (hp_of_player > 300) hp_of_player = 300;
+
+            damage = Math.floor(Math.random() * 50 + 50);
+            hp_of_player -= damage;
+
+            mess.innerHTML = "自分のHPが" + heals + "回復！<br>" + damage + "のダメージを受けた";
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+
+            isGameOver(hp_of_player);
+            cntTurn++;
+        }
+    }
+
+    function isGameOver(hp) {
+        if (hp_of_player < 0) {
+            alert("Game Over");
+            hp_of_enemy = 300;
+            hp_of_player = 300;
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+        }
+    }
+
+    function clear() {
+        alert("倒した！\nクリアターン数 : "+cntTurn);
+        ene.innerHTML = "<img src=https://1.bp.blogspot.com/-abtG2HYMsA8/UU--5kLFD0I/AAAAAAAAO_w/ta20nlofB6Y/s1600/kaizoku_takara.png width='300' height='300'>"
+    }
+    
+    
+
+</script>
+
+</html>
