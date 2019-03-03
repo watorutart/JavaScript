@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>Battle</title>
+</head>
+
+<body>
+    <div id="enemy">
+        <img src="https://4.bp.blogspot.com/-yr7B9IanNcY/Wn1V29LFeVI/AAAAAAABKF4/jUBITNcwgXE4QpD4coaOyE7HngsxND2RwCLcBGAs/s800/fantasy_mandrake_mandragora.png" width="300" height="300">
+    </div>
+    <div>
+        <input type="button" value="攻撃" onclick="attack()">
+        <input type="button" value="防御" onclick="guard()">
+        <input type="button" value="回復" onclick="heal()">
+    </div>
+    <div id="hp"></div>
+    <br>
+    -------------------------------------------------
+    <div id="message">マンドラゴラが現れた！</div>
+</body>
+<script>
+    var max_hp = 300;
+    var player_level = 0;
+    var charge = 0;
+    var sp_move = false;
+
+    var hp_of_enemy = 300;
+    var hp_of_player = 300;
+    var cntTurn = 0;
+
+    var hp = document.getElementById("hp");
+    hp.innerHTML = "Player | HP | " + hp_of_player;
+    var mess = document.getElementById("message");
+
+    var ene = document.getElementById("enemy");
+    var enemy_level = 0;
+
+    var stage = 0;
+    var fire_breath = false;
+
+    function attack() {
+        if (hp_of_enemy > 0) {
+            cntTurn++;
+            damage1 = actPlayer("attack");
+            hp_of_enemy -= damage1;
+            if (hp_of_enemy < 0) {
+                clear();
+            } else {
+                damage2 = actEnemy("attack");
+                hp_of_player -= damage2;
+                mess.innerHTML = messPlayer("attack",damage1) + messEnemy(damage2);
+                if(sp_move)sp_move = false;
+                hp.innerHTML = "Player | HP | " + hp_of_player;
+                isGameOver(hp_of_player);
+            }
+        }
+    }
+
+    function guard() {
+        if (hp_of_enemy > 0) {
+            cntTurn++;
+            damage = actEnemy("guard");
+            hp_of_player -= damage;
+            mess.innerHTML = messPlayer("gurad",0) + messEnemy(damage);
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+            isGameOver(hp_of_player);
+        }
+    }
+
+    function heal() {
+        if (hp_of_enemy > 0) {
+            cntTurn++;
+            heals = actPlayer("heal");
+            hp_of_player += heals;
+
+            if (hp_of_player > max_hp) hp_of_player = 300;
+
+            damage = actEnemy("heal");
+            hp_of_player -= damage;
+            mess.innerHTML = messPlayer("heal", heals) + messEnemy(damage);
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+
+            isGameOver(hp_of_player);
+        }
+    }
+
+    function isGameOver(hp_p) {
+        charge = 0;
+        sp_move = false;
+        fire_breath = false;
+        
+        if (hp_p <= 0) {
+            alert("Game Over");
+            if (stage == 0) {
+                hp_of_enemy = 300;
+                hp_of_player = 300;
+            } else if (stage == 1) {
+                hp_of_enemy = 600;
+                hp_of_player = 400;
+            } else {
+                hp_of_enemy = 2000;
+                hp_of_player = 500;
+            }
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+            if (stage == 0) mess.innerHTML = "マンドラゴラが現れた！";
+            else if (stage == 1) mess.innerHTML = "ミミックが現れた！";
+            else mess.innerHTML = "ドラゴンが現れた！";
+        }
+    }
+
+    function clear() {
+        alert("倒した！\nクリアターン数 : " + cntTurn);
+        if(stage == 0)ene.innerHTML = "<img src=https://1.bp.blogspot.com/-HktguOB_szk/WYAyBHwUJrI/AAAAAAABFxk/hX8C3Cvj48shdFd8Q0-jVkZTO_MOFUz4QCLcBGAs/s800/food_ninjin_shirishiri.png>";
+        else if(stage == 1){
+            ene.innerHTML = "<img src=https://1.bp.blogspot.com/-abtG2HYMsA8/UU--5kLFD0I/AAAAAAAAO_w/ta20nlofB6Y/s1600/kaizoku_takara.png width='300' height='300'>";
+        }
+        else if(stage == 2){
+            ene.innerHTML = "<img src=https://1.bp.blogspot.com/-7_Y9yHhcfoA/UPyIw4MagWI/AAAAAAAAKxE/m-vKQNunbDk/s1600/manga_niku.png";
+        }
+        if (enemy_level == 2) {
+            mess.innerHTML = "ゲームクリア！<br>あそんでくれてありがとう！！";
+        } else mess.innerHTML = "クリア！<br><input type='button' value='next' onclick='next()'>";
+    }
+
+    function next() {
+        cntTurn = 0;
+        player_level++;
+        stage++;
+        if (stage == 1) {
+            enemy_level++;
+            mess.innerHTML = "ミミックが現れた！";
+            ene.innerHTML = "<img src=https://1.bp.blogspot.com/-_8wJqUxj-d4/W4PJlko8nmI/AAAAAAABOIc/Z-MzXgFr2OkbWRKja484G8tVn74a80h5QCLcBGAs/s800/character_game_mimic.png width='300' height='300'>";
+            hp_of_enemy = 600;
+            hp_of_player = 400;
+            max_hp = 400;
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+        } else if (stage == 2) {
+            enemy_level++;
+            mess.innerHTML = "ドラゴンが現れた！";
+            ene.innerHTML = "<img src=https://4.bp.blogspot.com/-t0TdfnnfnH0/UT10GYML1QI/AAAAAAAAOrY/qNLEwXbzl-0/s1600/fantasy_dragon.png width='500' height='500'>";
+            hp_of_enemy = 2000;
+            hp_of_player = 500;
+            max_hp = 500;
+            hp.innerHTML = "Player | HP | " + hp_of_player;
+        }
+    }
+    
+    function actPlayer(act){
+        if(act == "attack"){
+            if(player_level == 2){
+                charge++;
+            }
+            damage = calcDmg(70+player_level*10, 30+player_level*20);
+            if(charge >= 3){
+                damage = calcDmg(player_level*50,150+player_level*10);
+                charge = 0;
+                sp_move = true;
+            }
+            return damage;
+        }
+        else if(act == "heal"){
+            charge = 0;
+            return calcDmg(30, 200+player_level*10);
+        }
+        else charge = 0;
+    }
+
+    function actEnemy(act) {
+        damage = calcDmg(50, 50);
+        if(act == "guard")damage = calcDmg(40,10);
+        if (enemy_level == 1) {
+            if (cntTurn % 3 == 0) damage = calcDmg(30, 200);
+            if(act == "guard")damage = calcDmg(30,50);
+        } else if (enemy_level == 2) {
+            if (fire_breath) {
+                damage = calcDmg(100+cntTurn, 180);
+                if(act == "guard")damage = calcDmg(50+cntTurn*2,50);
+                else if(sp_move)damage = 0;
+            } else if (cntTurn % 3 == 0) {
+                fire_breath = true;
+                damage = 0;
+            } else {
+                damage = calcDmg(50 + cntTurn, 50);
+                if(act == "guard")damage = calcDmg(20,10+cntTurn);
+            }
+        }
+
+        return damage;
+    }
+
+    function messEnemy(damage) {
+        str = "";
+        if (enemy_level == 1 && cntTurn % 3 == 0) {
+            str = "敵の痛恨の一撃！！" + damage + "ダメージを受けた";
+        } else if (enemy_level == 2) {
+            if (fire_breath && cntTurn%3  == 0) {
+                str = "ドラゴンは大きく息を吸い込んだ";
+            } else if (fire_breath) {
+                if(sp_move){
+                    str = "ドラゴンの火炎ブレスをかきけした！";
+                    sp_move = false;
+                }
+                else str = "ドラゴンの火炎ブレス！！" + damage + "ダメージを受けた";
+                fire_breath = false;
+            } else str = damage + "ダメージを受けた";
+        } else str = damage + "ダメージを受けた";
+        return str;
+    }
+
+    function messPlayer(act,figure){
+        str = "";
+        if(act == "attack" && sp_move){
+            str = "あなたの必殺 火炎斬り！" + figure + "のダメージを与えた！<br>";  
+        }
+        else if(act == "attack"){
+            str = "あなたの攻撃！" + figure + "のダメージを与えた！<br>";  
+        }
+        else if(act == "heal"){
+            str = "あなたのHPが" + figure + "回復！<br>";
+        }
+        return str;
+    }
+    
+    function calcDmg(randrange, bias) {
+        return Math.floor(Math.random() * randrange + bias);
+    }
+
+</script>
+
+</html>
