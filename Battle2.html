@@ -75,7 +75,7 @@
             heals = actPlayer("heal");
             hp_of_player += heals;
 
-            if (hp_of_player > max_hp) hp_of_player = 300;
+            if (hp_of_player > max_hp) hp_of_player = max_hp;
 
             damage = actEnemy("heal");
             hp_of_player -= damage;
