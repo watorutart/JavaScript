@@ -112,6 +112,8 @@
 
     function clear() {
         alert("倒した！\nクリアターン数 : " + cntTurn);
+        charge = 0;
+        sp_move = false;
         if (stage == 0) ene.innerHTML = "<img src=https://1.bp.blogspot.com/-HktguOB_szk/WYAyBHwUJrI/AAAAAAABFxk/hX8C3Cvj48shdFd8Q0-jVkZTO_MOFUz4QCLcBGAs/s800/food_ninjin_shirishiri.png width='300' height='300'>";
         else if (stage == 1) {
             ene.innerHTML = "<img src=https://1.bp.blogspot.com/-abtG2HYMsA8/UU--5kLFD0I/AAAAAAAAO_w/ta20nlofB6Y/s1600/kaizoku_takara.png width='300' height='300'>";
@@ -131,7 +133,7 @@
             enemy_level++;
             mess.innerHTML = "ミミックが現れた！";
             ene.innerHTML = "<img src=https://1.bp.blogspot.com/-_8wJqUxj-d4/W4PJlko8nmI/AAAAAAABOIc/Z-MzXgFr2OkbWRKja484G8tVn74a80h5QCLcBGAs/s800/character_game_mimic.png width='300' height='300'>";
-            hp_of_enemy = 600;
+            hp_of_enemy = 550;
             hp_of_player = 400;
             max_hp = 400;
             hp.innerHTML = "Player | HP | " + hp_of_player;
@@ -148,7 +150,7 @@
 
     function actPlayer(act) {
         if (act == "attack") {
-            if (player_level >= 2) {
+            if (player_level >= 1) {
                 charge++;
             }
             damage = calcDmg(70 + player_level * 10, 30 + player_level * 20);
