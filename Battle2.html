@@ -50,8 +50,8 @@
             } else {
                 damage2 = actEnemy("attack");
                 hp_of_player -= damage2;
-                mess.innerHTML = messPlayer("attack",damage1) + messEnemy(damage2);
-                if(sp_move)sp_move = false;
+                mess.innerHTML = messPlayer("attack", damage1) + messEnemy(damage2);
+                if (sp_move) sp_move = false;
                 hp.innerHTML = "Player | HP | " + hp_of_player;
                 isGameOver(hp_of_player);
             }
@@ -63,7 +63,7 @@
             cntTurn++;
             damage = actEnemy("guard");
             hp_of_player -= damage;
-            mess.innerHTML = messPlayer("gurad",0) + messEnemy(damage);
+            mess.innerHTML = messPlayer("gurad", 0) + messEnemy(damage);
             hp.innerHTML = "Player | HP | " + hp_of_player;
             isGameOver(hp_of_player);
         }
@@ -87,11 +87,11 @@
     }
 
     function isGameOver(hp_p) {
-        charge = 0;
-        sp_move = false;
-        fire_breath = false;
-        
         if (hp_p <= 0) {
+            charge = 0;
+            sp_move = false;
+            fire_breath = false;
+
             alert("Game Over");
             if (stage == 0) {
                 hp_of_enemy = 300;
@@ -112,12 +112,11 @@
 
     function clear() {
         alert("倒した！\nクリアターン数 : " + cntTurn);
-        if(stage == 0)ene.innerHTML = "<img src=https://1.bp.blogspot.com/-HktguOB_szk/WYAyBHwUJrI/AAAAAAABFxk/hX8C3Cvj48shdFd8Q0-jVkZTO_MOFUz4QCLcBGAs/s800/food_ninjin_shirishiri.png>";
-        else if(stage == 1){
+        if (stage == 0) ene.innerHTML = "<img src=https://1.bp.blogspot.com/-HktguOB_szk/WYAyBHwUJrI/AAAAAAABFxk/hX8C3Cvj48shdFd8Q0-jVkZTO_MOFUz4QCLcBGAs/s800/food_ninjin_shirishiri.png width='300' height='300'>";
+        else if (stage == 1) {
             ene.innerHTML = "<img src=https://1.bp.blogspot.com/-abtG2HYMsA8/UU--5kLFD0I/AAAAAAAAO_w/ta20nlofB6Y/s1600/kaizoku_takara.png width='300' height='300'>";
-        }
-        else if(stage == 2){
-            ene.innerHTML = "<img src=https://1.bp.blogspot.com/-7_Y9yHhcfoA/UPyIw4MagWI/AAAAAAAAKxE/m-vKQNunbDk/s1600/manga_niku.png";
+        } else if (stage == 2) {
+            ene.innerHTML = "<img src=https://1.bp.blogspot.com/-7_Y9yHhcfoA/UPyIw4MagWI/AAAAAAAAKxE/m-vKQNunbDk/s1600/manga_niku.png>";
         }
         if (enemy_level == 2) {
             mess.innerHTML = "ゲームクリア！<br>あそんでくれてありがとう！！";
@@ -146,44 +145,42 @@
             hp.innerHTML = "Player | HP | " + hp_of_player;
         }
     }
-    
-    function actPlayer(act){
-        if(act == "attack"){
-            if(player_level == 2){
+
+    function actPlayer(act) {
+        if (act == "attack") {
+            if (player_level >= 2) {
                 charge++;
             }
-            damage = calcDmg(70+player_level*10, 30+player_level*20);
-            if(charge >= 3){
-                damage = calcDmg(player_level*50,150+player_level*10);
+            damage = calcDmg(70 + player_level * 10, 30 + player_level * 20);
+            if (charge >= 3) {
+                damage = calcDmg(player_level * 50, 150 + player_level * 10);
                 charge = 0;
                 sp_move = true;
             }
             return damage;
-        }
-        else if(act == "heal"){
+        } else if (act == "heal") {
             charge = 0;
-            return calcDmg(30, 200+player_level*10);
-        }
-        else charge = 0;
+            return calcDmg(30, 200 + player_level * 10);
+        } else charge = 0;
     }
 
     function actEnemy(act) {
         damage = calcDmg(50, 50);
-        if(act == "guard")damage = calcDmg(40,10);
+        if (act == "guard") damage = calcDmg(40, 10);
         if (enemy_level == 1) {
             if (cntTurn % 3 == 0) damage = calcDmg(30, 200);
-            if(act == "guard")damage = calcDmg(30,50);
+            if (act == "guard") damage = calcDmg(30, 50);
         } else if (enemy_level == 2) {
             if (fire_breath) {
-                damage = calcDmg(100+cntTurn, 180);
-                if(act == "guard")damage = calcDmg(50+cntTurn*2,50);
-                else if(sp_move)damage = 0;
-            } else if (cntTurn % 3 == 0) {
-                fire_breath = true;
+                damage = calcDmg(100 + cntTurn, 180);
+                if (act == "guard") damage = calcDmg(50 + cntTurn * 2, 50);
+                else if (sp_move) damage = 0;
+            } else if (!fire_breath && cntTurn % 3 == 0) {
+                //fire_breath = true;
                 damage = 0;
             } else {
                 damage = calcDmg(50 + cntTurn, 50);
-                if(act == "guard")damage = calcDmg(20,10+cntTurn);
+                if (act == "guard") damage = calcDmg(20, 10 + cntTurn);
             }
         }
 
@@ -195,34 +192,32 @@
         if (enemy_level == 1 && cntTurn % 3 == 0) {
             str = "敵の痛恨の一撃！！" + damage + "ダメージを受けた";
         } else if (enemy_level == 2) {
-            if (fire_breath && cntTurn%3  == 0) {
+            if (!fire_breath && cntTurn % 3 == 0) {
                 str = "ドラゴンは大きく息を吸い込んだ";
+                fire_breath = true;
             } else if (fire_breath) {
-                if(sp_move){
+                if (sp_move) {
                     str = "ドラゴンの火炎ブレスをかきけした！";
                     sp_move = false;
-                }
-                else str = "ドラゴンの火炎ブレス！！" + damage + "ダメージを受けた";
+                } else str = "ドラゴンの火炎ブレス！！" + damage + "ダメージを受けた";
                 fire_breath = false;
             } else str = damage + "ダメージを受けた";
         } else str = damage + "ダメージを受けた";
         return str;
     }
 
-    function messPlayer(act,figure){
+    function messPlayer(act, figure) {
         str = "";
-        if(act == "attack" && sp_move){
-            str = "あなたの必殺 火炎斬り！" + figure + "のダメージを与えた！<br>";  
-        }
-        else if(act == "attack"){
-            str = "あなたの攻撃！" + figure + "のダメージを与えた！<br>";  
-        }
-        else if(act == "heal"){
+        if (act == "attack" && sp_move) {
+            str = "あなたの必殺 火炎斬り！" + figure + "のダメージを与えた！<br>";
+        } else if (act == "attack") {
+            str = "あなたの攻撃！" + figure + "のダメージを与えた！<br>";
+        } else if (act == "heal") {
             str = "あなたのHPが" + figure + "回復！<br>";
         }
         return str;
     }
-    
+
     function calcDmg(randrange, bias) {
         return Math.floor(Math.random() * randrange + bias);
     }
