@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>色見本</title>
+    <style>
+        table {
+            border-collapse:
+        }
+
+        td {
+            height: 30px;
+            border: solid 1px #c0c0c0;
+            font-size: 12px;
+            color: #ffffff;
+        }
+
+    </style>
+</head>
+
+<body>
+    <table id="testTBL"></table>
+
+    <script>
+        var tstTbl = document.getElementById("testTBL");
+
+        for (var y = 0; y < 16; y++) {
+            var row = tstTbl.insertRow(-1);
+            for (var x = 0; x < 16; x++) {
+                var cell = row.insertCell("-1");
+                var cr = 0;
+                var cg = 16*x;
+                var cb = 16*y;
+                var colStr = "rgb("+cr + "," + cg +","+ cb + ")";
+                cell.style.backgroundColor = colStr;
+                cell.textContent = colStr;
+
+            }
+        }
+
+    </script>
+</body>
+
+</html>
