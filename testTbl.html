@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>JavaScriptでテーブルを作成</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 50px;
+            height: 50px;
+            border: solid 1px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <table id="testTBL"></table>
+
+    <script>
+        var tstTbl = document.getElementById("testTBL");
+        var row = tstTbl.insertRow(-1);
+        for(var i = 0; i<=30 ; i+=3){
+            var cell = row.insertCell(-1);
+            cell.textContent = i;
+        }
+
+    </script>
+</body>
+
+</html>
