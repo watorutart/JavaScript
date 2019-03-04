@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>二重ループ</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td {
+            width: 100px;
+            height: 30px;
+            border: solid 1px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <table id="testTBL"></table>
+
+    <script>
+        var tstTbl = document.getElementById("testTBL");
+        for (var y = 0; y <= 9; y++) {
+            var row = tstTbl.insertRow(-1);
+            if(y%2 == 1)row.style.backgroundColor = "lavender";
+            for (var x = 0; x <= 9; x++) {
+                var cell = row.insertCell(-1);
+                var kuku = y + "×" + x + "=" + (x*y);
+                cell.textContent = kuku;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
