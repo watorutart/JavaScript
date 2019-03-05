@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: auto;
+        }
+
+        td {
+            border: 8px solid lavender;
+            width: 500px;
+            height: 100px;
+            font-size: 60px;
+            color: violet;
+            text-align: center;
+        }
+
+    </style>
+    <title>リアルタイム処理</title>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td id="msgTBL"></td>
+        </tr>
+    </table>
+
+    <script>
+        var MESSAGE = ["リアル", "タイム", "処理", "実行中","setIntervalを","使用"];
+        var msgNo = 0;
+
+        function changeMsg() {
+            var cell = document.getElementById("msgTBL");
+            cell.textContent = MESSAGE[msgNo];
+            msgNo++;
+            if (msgNo == 6) msgNo = 0;
+        }
+        setInterval(changeMsg, 2000);
+
+    </script>
+</body>
+
+</html>
