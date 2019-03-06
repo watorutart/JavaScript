@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>山本家の家族をオブジェクトで定義</title>
+</head>
+
+<body>
+    <span>コンソールのログを確認してください</span>
+
+    <script>
+        //クラスの定義
+        function Member(name, age, gender) {
+            this.name = name;
+            this.age = age;
+            this.gender = gender;
+        }
+
+        //メソッドの定義
+        Member.prototype.toshitoru = function() {
+            this.age++;
+        }
+
+        var GENDER = ["男性", "女性"];
+
+        var papa = new Member("山本　大介", 42, 0);
+        var mama = new Member("山本　美咲", 37, 1);
+        var boku = new Member("山本　拓哉", 6, 0);
+
+        console.log("お父さんの年齢は" + papa.age + "歳");
+        papa.toshitoru();
+        console.log("papa.toshitoru()を実行すると");
+        console.log(papa.age + "歳になります");
+
+    </script>
+</body>
+
+</html>
