@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>グラフの表示</title>
+
+</head>
+
+<body>
+    <h3>棒グラフのサンプル</h3>
+    <div id="mychart" style="width: 800px; height: 600px;"></div>
+    <script src="https://www.gstatic.com/charts/loader.js">
+    </script>
+    <script>
+        google.charts.load("current", {
+            "packages": ["corechart"]
+        });
+        google.charts.setOnLoadCallback(myChart);
+
+        function myChart() {
+            var data = google.visualization.arrayToDataTable([
+                ["動物", "人数", { role: "style" }],
+                ["犬", 11, "red"],
+                ["猫", 8, "orange"],
+                ["ハムスター", 3, "yellow"],
+                ["鳥", 2, "green"],
+                ["魚", 2, "blue"],
+                ["その他", 1, "pink"],
+                ["ペットはいない", 7, "gray"]
+            ]);
+
+            var options = {
+                title: "三年一組のみんなのペット",
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById("mychart"));
+            chart.draw(data, options);
+        }
+
+    </script>
+</body>
+
+</html>
