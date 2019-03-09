@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <title>グラフの表示</title>
+    </head>
+<body>
+    <h3>円グラフのサンプル</h3>
+    <div id="mychart" style="width:800px; height:600px;"></div>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    google.charts.load("current",{"packages":["corechart"]});
+    google.charts.setOnLoadCallback(myChart);
+    
+    function myChart(){
+        var data = google.visualization.arrayToDataTable([
+            ["動物", "人数"],
+            ["犬", 11],
+            ["猫", 8],
+            ["ハムスター", 3],
+            ["鳥", 2],
+            ["魚", 2],
+            ["その他", 1],
+            ["ペットはいない", 7]
+        ]);
+        
+        var options = {
+            title:"3年1組のみんなのペット",
+            sllices: { 
+            0:{color: "darkRed"},
+            1:{color: "orange"},
+            2:{color:"pink"},
+            3:{color:"lime"},
+            4:{color:"blue"},
+            5:{color:"red"},
+            6:{color:"gray"}
+            }
+        };
+        
+        var chart = new google.visualization.PieChart(document.getElementById("mychart"));
+        chart.draw(data, options);
+    }
+    </script></body></html>
