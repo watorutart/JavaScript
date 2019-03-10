@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>Youtubeの動画を組み込む</title>
+</head>
+
+<body>
+    <div id="player"></div>
+    <br>Thief Simulatorにて泥棒で生計を立てる<br>
+    <br><a href="https://www.youtube.com/channel/UCx1nAvtVDIsaGmCMSe8ofsQ">jun channel</a>より<br>
+    <script>
+        //IFrame Player API コードを読み込む
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        var youtubeId = 'mDfpQqTmsuY';
+
+        //IFrame Player API コードが読み込まれるとonYouTubeIframeAPIReady関数が実行される
+        function onYouTubeIframeAPIReady() {
+            // サムネイルの埋め込み
+            document.getElementById('player').innerHTML = '<img id="yt-thumb" src="http://i.ytimg.com/vi/' + youtubeId + '/sddefault.jpg">';
+
+            // サムネイルクリック時にYouTubeを埋め込むように設定
+            document.getElementById('yt-thumb').addEventListener('click', function() {
+
+                //動画プレーヤーを挿入する YT.Player オブジェクトを作成する
+                var player = new YT.Player('player', {
+                    width: '960',
+                    height: '540',
+                    videoId: youtubeId, //Youtube動画ＩＤ
+                    events: {
+                        'onReady': onPlayerReady //準備ができたら再生を始めるように指示
+                    }
+                });
+            });
+        }
+
+        //再生を開始する関数
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+    </script>
+</body>
+
+</html>
