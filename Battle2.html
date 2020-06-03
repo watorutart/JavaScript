@@ -189,7 +189,7 @@
         return damage;
     }
 
-    function messEnemy(damage) {
+    function msgEnemy(damage) {
         str = "";
         if (enemy_level == 1 && cntTurn % 3 == 0) {
             str = "敵の痛恨の一撃！！" + damage + "ダメージを受けた";
@@ -208,7 +208,7 @@
         return str;
     }
 
-    function messPlayer(act, figure) {
+    function msgPlayer(act, figure) {
         str = "";
         if (act == "attack" && sp_move) {
             str = "あなたの必殺 火炎斬り！" + figure + "のダメージを与えた！<br>";
